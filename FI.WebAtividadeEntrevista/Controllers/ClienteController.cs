@@ -66,6 +66,43 @@ namespace WebAtividadeEntrevista.Controllers
         }
 
         [HttpPost]
+        [Route("IncluirBeneficiario")]
+        public JsonResult IncluirBeneficiario(BeneficiarioModel model)
+        {
+            BoCliente bo = new BoCliente();
+
+            var CpfExiste = bo.VerificarExistencia(model.CPF);
+
+            if (CpfExiste)
+            {
+                return Json("CPF Já cadastrado");
+            }
+
+            if (!this.ModelState.IsValid)
+            {
+                List<string> erros = (from item in ModelState.Values
+                                      from error in item.Errors
+                                      select error.ErrorMessage).ToList();
+
+                Response.StatusCode = 400;
+                return Json(string.Join(Environment.NewLine, erros));
+            }
+            else
+            {
+
+                model.Id = bo.IncluirBeneficiario(new Beneficiario()
+                {
+                    Nome = model.Nome,
+                    IdCliente = model.IdCliente,
+                    CPF = model.CPF
+                });
+
+
+                return Json("Cadastro efetuado com sucesso");
+            }
+        }
+
+        [HttpPost]
         public JsonResult Alterar(ClienteModel model)
         {
             BoCliente bo = new BoCliente();
@@ -192,6 +229,20 @@ namespace WebAtividadeEntrevista.Controllers
             {
                 return Json(new { Result = "ERROR", Message = ex.Message });
             }
+        }
+
+        [HttpPost]
+        public ActionResult DeletarBeneficiario(long BeneficiarioId)
+        {
+            if(BeneficiarioId < 1)
+            {
+                return Json("Não Existe nenhum Beneficiario com esse Id");
+            }
+            BoCliente bo = new BoCliente();
+            bo.ExcluirBeneficiario(BeneficiarioId);           
+
+            return Json("Cadastro alterado com sucesso");
+            
         }
     }
 }

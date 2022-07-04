@@ -12,6 +12,10 @@ namespace WebAtividadeEntrevista
                         "~/Scripts/jquery-{version}.js"));
             bundles.Add(new ScriptBundle("~/bundles/jqueryui").Include(
                         "~/Scripts/jquery-ui-{version}.js"));
+            bundles.Add(new ScriptBundle("~/bundles/mask").Include(
+                           "~/Scripts/jquery.mask.js",
+                           "~/Scripts/site.js"));
+
             
             // Use the development version of Modernizr to develop with and learn from. Then, when you're
             // ready for production, use the build tool at https://modernizr.com to pick only the tests you need.
@@ -36,6 +40,8 @@ namespace WebAtividadeEntrevista
             //BENEFICIARIO
             bundles.Add(new ScriptBundle("~/bundles/Beneficiario").Include(
                     "~/Scripts/Clientes/FI.ListBeneficiario.js"));
+            bundles.Add(new ScriptBundle("~/bundles/AdcBeneficiario").Include(
+                    "~/Scripts/Clientes/FI.AdcBeneficiario.js"));
 
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
@@ -44,6 +50,8 @@ namespace WebAtividadeEntrevista
 
             bundles.Add(new StyleBundle("~/Content/jtable").Include(
                       "~/Scripts/jtable/themes/metro/darkgray/jtable.css"));
+
+
 
         }
     }

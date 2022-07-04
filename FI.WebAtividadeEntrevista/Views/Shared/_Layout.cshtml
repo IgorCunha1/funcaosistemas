@@ -42,8 +42,8 @@
     @Scripts.Render("~/bundles/jtable")
     @Scripts.Render("~/bundles/bootstrap")
     @Scripts.Render("~/bundles/Beneficiario")
-    <script type="text/javascript" src="~/Scripts/jquery.mask.js"></script>
-    <script type="text/javascript" src="~/Scripts/site.js"></script>
+    @Scripts.Render("~/bundles/AdcBeneficiario")
+    @Scripts.Render("~/bundles/mask")
 
     @RenderSection("scripts", required: false)
 </body>

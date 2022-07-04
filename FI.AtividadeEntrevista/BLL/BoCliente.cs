@@ -18,6 +18,12 @@ namespace FI.AtividadeEntrevista.BLL
             return cli.Incluir(cliente);
         }
 
+        public long IncluirBeneficiario(DML.Beneficiario beneficiario)
+        {
+            DAL.DaoCliente cli = new DAL.DaoCliente();
+            return cli.IncluirBeneficiario(beneficiario);
+        }
+
         /// <summary>
         /// Altera um cliente
         /// </summary>
@@ -48,6 +54,11 @@ namespace FI.AtividadeEntrevista.BLL
         {
             DAL.DaoCliente cli = new DAL.DaoCliente();
             cli.Excluir(id);
+        }
+        public void ExcluirBeneficiario(long id)
+        {
+            DAL.DaoCliente cli = new DAL.DaoCliente();
+            cli.ExcluirBeneficiario(id);
         }
 
         /// <summary>

@@ -232,17 +232,64 @@ namespace WebAtividadeEntrevista.Controllers
         }
 
         [HttpPost]
-        public ActionResult DeletarBeneficiario(long BeneficiarioId)
+        [Route("DeletarBeneficiario")]
+        public JsonResult DeletarBeneficiario(long id)
         {
-            if(BeneficiarioId < 1)
+            if(id < 1)
             {
                 return Json("Não Existe nenhum Beneficiario com esse Id");
             }
             BoCliente bo = new BoCliente();
-            bo.ExcluirBeneficiario(BeneficiarioId);           
+            bo.ExcluirBeneficiario(id);           
 
-            return Json("Cadastro alterado com sucesso");
+            return Json("Usuario Deletado com Sucesso");
             
+        }
+        [HttpPost]
+        public JsonResult AlterarBeneficiario(long id)
+        {
+            BoCliente bo = new BoCliente();
+            Beneficiario beneficiario = bo.ConsultarBeneficiario(id);
+            Models.BeneficiarioModel model = null;
+
+            if (beneficiario != null)
+            {
+                model = new BeneficiarioModel()
+                {
+                    Id = beneficiario.Id,
+                    Nome = beneficiario.Nome,
+                    CPF = beneficiario.CPF,
+                    IdCliente = beneficiario.IdCliente
+                };
+            }
+            return Json(new { Result = "OK", Records = model });
+        }
+
+        [HttpPost]
+        public JsonResult SalvarAlteracaoficiario(BeneficiarioModel model)
+        {
+            BoCliente bo = new BoCliente();
+
+            if (!this.ModelState.IsValid)
+            {
+                List<string> erros = (from item in ModelState.Values
+                                      from error in item.Errors
+                                      select error.ErrorMessage).ToList();
+
+                Response.StatusCode = 400;
+                return Json(string.Join(Environment.NewLine, erros));
+            }
+            else
+            {
+                bo.AlterarBeneficiario(new Beneficiario()
+                {
+                    Id = model.Id,
+                    Nome = model.Nome,
+                    CPF = model.CPF
+                });
+
+                return Json("Cadastro alterado com sucesso");
+            }
         }
     }
 }

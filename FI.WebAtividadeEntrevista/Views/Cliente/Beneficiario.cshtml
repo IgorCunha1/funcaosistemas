@@ -5,10 +5,41 @@
 }
 @section scripts{
 <script>
-     var urlAlteracao = '@Url.Action("Alterar", "Cliente", new { area = "" })';
+     var urlAlteracao = '@Url.Action("AlterarBeneficiario", "Cliente", new { area = "" })';
+     var urlSalvarAlteracao = '@Url.Action("SalvarAlteracaoficiario", "Cliente", new { area = "" })';
      var urlAdcBeneficiario = '@Url.Action("IncluirBeneficiario", "Cliente", new { area = "" })';
      var urlBeneficiarioList = '@Url.Action("Beneficiario", "Cliente", new { idCliente = id })';
      var urlDeletarBeneficiario = '@Url.Action("DeletarBeneficiario", "Cliente", new { area = "" })';
+
+    var idBeneficiario = document.getElementById(id);
+
+        $('#formAlterarBeneficiario').submit(function (e) {
+
+            e.preventDefault();
+
+            $.ajax({
+                url: urlSalvarAlteracao,
+                method: "POST",
+                data: {
+                    "ID": $(this).find("#id").val(),
+                    "NOME": $(this).find("#Nome").val(),
+                    "CPF": $(this).find("#cpf").val()
+                },
+                error:
+                function (r) {
+                    if (r.status == 400)
+                        ModalDialog("Ocorreu um erro", r.responseJSON);
+                    else if (r.status == 500)
+                        ModalDialog("Ocorreu um erro", "Ocorreu um erro interno no servidor.");
+                },
+                success:
+                function (r) {
+                ModalDialog("Sucesso!", r)
+                $("#formAlterarBeneficiario")[0].reset();
+                window.location.href = urlBeneficiarioList;
+                }
+            });
+        })
 
 </script>
     @Scripts.Render("~/bundles/Beneficiario")
@@ -71,4 +102,60 @@
     </div>
 </div>
 
+<div class="modal fade" id="alterarBeneficiario" role="dialog" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Novo Beneficiario</h3>
+            </div>
+            <div class="modal-body">
+                <form id="formAlterarBeneficiario" method="post">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="Nome">Nome:</label>
+                                <input required="required" type="text" class="form-control" id="Nome" name="Nome" placeholder="Ex.: João" maxlength="50">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="Cpf">CPF:</label>
+                                <input required="required" type="text" class="form-control" id="cpf" name="CPF" placeholder="Ex.: 123.456.789-00">
+                            </div>
+                            <div id="msg_error"></div>
+                        </div>
+                        <div class="col-md-4" hidden>
+                            <div class="form-group">
+                                <label for="idCliente">IdClient:</label>
+                                <input required="required" type="text" class="form-control" 
+                                       id="idCliente" name="idCliente" value="@Html.Raw(id)" readonly>
+                            </div>
+                        </div>
+                        <div class="col-md-4" hidden>
+                            <div class="form-group">
+                                <label for="idCliente">Id:</label>
+                                <input required="required" type="text" class="form-control" 
+                                       id="id" name="id" readonly>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="pull-right">
+                                <button type="submit" class="btn btn-sm btn-success">Salvar</button>
+                                <button type="button" class="btn btn-sm btn-danger" data-dismiss="modal">Cancelar</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
 
+            </div>
+        </div>
+    </div>
+</div>
+
+    

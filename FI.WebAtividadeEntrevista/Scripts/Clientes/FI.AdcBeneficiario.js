@@ -25,8 +25,9 @@ $(document).ready(function () {
                 },
                 success:
                 function (r) {
-                    ModalDialog("Sucesso!", r)
-                    $("#formBeneficiario")[0].reset();
+                    
+                    window.location.href = urlBeneficiarioList;
+ModalDialog("Sucesso!", r)
                 }
             });
         }

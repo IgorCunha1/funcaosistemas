@@ -269,8 +269,8 @@
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Scripts\Clientes\FI.DeletarBeneficiario .js" />
     <Content Include="Scripts\Clientes\FI.AltClientes.js" />
+    <Content Include="Scripts\Clientes\FI.AltBeneficiario.js" />
     <Content Include="Scripts\Clientes\FI.AdcBeneficiario.js" />
     <Content Include="Scripts\Clientes\FI.ListBeneficiario.js" />
     <Content Include="Scripts\Clientes\FI.ListClientes.js" />

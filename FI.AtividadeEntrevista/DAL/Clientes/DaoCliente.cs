@@ -41,7 +41,6 @@ namespace FI.AtividadeEntrevista.DAL
         }
 
         
-
         /// <summary>
         /// Inclui um novo beneficiario
         /// </summary>
@@ -73,6 +72,18 @@ namespace FI.AtividadeEntrevista.DAL
 
             DataSet ds = base.Consultar("FI_SP_ConsCliente", parametros);
             List<DML.Cliente> cli = Converter(ds);
+
+            return cli.FirstOrDefault();
+        }
+
+        internal Beneficiario ConsultarBeneficiario(long id)
+        {
+            List<System.Data.SqlClient.SqlParameter> parametros = new List<System.Data.SqlClient.SqlParameter>();
+
+            parametros.Add(new System.Data.SqlClient.SqlParameter("Id", id));
+
+            DataSet ds = base.Consultar("FI_SP_ConsBeneficiario", parametros);
+            List<DML.Beneficiario> cli = ConverterBeneficiario(ds);
 
             return cli.FirstOrDefault();
         }
@@ -172,6 +183,16 @@ namespace FI.AtividadeEntrevista.DAL
             base.Executar("FI_SP_AltCliente", parametros);
         }
 
+        internal void AlterarBeneficiario(Beneficiario beneficiario)
+        {
+            List<System.Data.SqlClient.SqlParameter> parametros = new List<System.Data.SqlClient.SqlParameter>();
+
+            parametros.Add(new System.Data.SqlClient.SqlParameter("Id", beneficiario.Id));
+            parametros.Add(new System.Data.SqlClient.SqlParameter("Nome", beneficiario.Nome));
+            parametros.Add(new System.Data.SqlClient.SqlParameter("CPF", beneficiario.CPF));
+
+            base.Executar("FI_SP_AltBeneficiario", parametros);
+        }
 
         /// <summary>
         /// Excluir Cliente

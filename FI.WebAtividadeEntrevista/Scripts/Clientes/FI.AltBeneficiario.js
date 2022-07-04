@@ -1,11 +1,16 @@
-﻿    $('#btnDeletar').submit(function (e) {
+﻿
+$(document).ready(function () {
+    $('#formAlterarBeneficiario').submit(function (e) {
+        
         e.preventDefault();
         
         $.ajax({
-            url: urlPost,
+            url: urlSalvarAlteracao,
             method: "POST",
             data: {
-                "idBeneficiario": $(this).find("#idBeneficiario").val()
+                "ID": $(this).find("#id").val(),
+                "NOME": $(this).find("#Nome").val(),
+                "CPF": $(this).find("#cpf").val()
             },
             error:
             function (r) {
@@ -16,7 +21,7 @@
             },
             success:
             function (r) {
-                ModalDialog("Sucesso!", r)
+               console.log("aqui")
             }
         });
     })

@@ -42,6 +42,8 @@ namespace WebAtividadeEntrevista
                     "~/Scripts/Clientes/FI.ListBeneficiario.js"));
             bundles.Add(new ScriptBundle("~/bundles/AdcBeneficiario").Include(
                     "~/Scripts/Clientes/FI.AdcBeneficiario.js"));
+            bundles.Add(new ScriptBundle("~/bundles/AlterarBeneficiario").Include(
+                    "~/Scripts/Clientes/FI.AltBeneficiario.js"));
 
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
